@@ -1,4 +1,18 @@
-# PasswordImporter plugin for CakePHP
+# Password Importer plugin for Passbolt
+
+This is a CakePHP plugin for PassBolt to enable importing secrets/passwords to the community edition.
+
+After importing the secrets/passwords a detailed downloadable report will appear with imported-, existed- secrets/passwords and errors.
+
+The plugin is tested on the dockerized version 2.1.0.
+
+
+### Screenshots
+
+![screenshots](https://raw.githubusercontent.com/aahmadts/general-styleguide/master/images/passbolt-password-importer-screenshot.png)
+
+![report-screenshots](https://raw.githubusercontent.com/aahmadts/general-styleguide/master/images/passbolt-password-importer-screenshot-report.png)
+
 
 ## Installation
 
@@ -28,14 +42,21 @@ After that run this composer command
 
     php composer.phar dumpautoload
 
-If plugin is installed correctly, it should be possible to be used without other changes as composer loads CakePHP plugins automatically.
 
-But if for some reason it did not work, you can tell PassBolt to load the Plugin by extending the `config/bootstrap.php` with the following:
+
+### Load Plugin
+
+After installing the plugin you will need to tell PassBolt to load the Plugin by extending the `config/bootstrap.php` with the following:
 
 	Plugin::load('PassboltPasswordImporter', ['routes' => true]);
 
-ref: https://book.cakephp.org/3.0/en/plugins.html#creating-your-own-plugins
+or if you have cake's console installed use:
+
+    ./bin/cake plugin load aahmadts/PassboltPasswordImporter
+
+
+For more info about CakePHP Plugins check here: https://book.cakephp.org/3.0/en/plugins.html
 
 ## Usage
 
-To use the Password Importer run `/password-importer` and enjoy.
+To use the Password Importer run `https://your-domain/password-importer` and enjoy.
