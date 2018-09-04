@@ -14,6 +14,8 @@ composer require aahmadts/passbolt-password-manager
 
 ### Manually Installing a Plugin
 
+Download PasswordImporter into the `passbolt/plugins` folder, then let composer know about it by adding the following into _composer.json_
+
     {
         "autoload": {
             "psr-4": {
@@ -22,7 +24,7 @@ composer require aahmadts/passbolt-password-manager
         }
     }
 
-then
+After that run this composer command
 
     php composer.phar dumpautoload
 
