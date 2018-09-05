@@ -4,7 +4,7 @@ This is a CakePHP plugin for PassBolt to enable importing secrets/passwords to t
 
 After importing the secrets/passwords a detailed downloadable report will appear with imported-, existed- secrets/passwords and errors.
 
-The plugin is tested on the dockerized version 2.1.0.
+The plugin is tested on the dockerized version _2.1.0-debian_. Check [Docker](./Dockerfile) for an example.
 
 
 ### Screenshots
