@@ -9,6 +9,9 @@ $(document).ready(function () {
             $('#startImport').css('display', 'none');
 
             $(this).ajaxSubmit({
+                "headers": {
+                    "X-CSRF-Token" : document.cookie.slice(10),
+                },
                 success: viewResponse
             });
 
