@@ -3,13 +3,19 @@
 namespace PassboltPasswordImporter\Controller;
 
 
+use App\Controller\Share\ShareController;
 use App\Model\Entity\Permission;
+use App\Model\Entity\Resource;
+use App\Model\Table\PermissionsTable;
 use App\Model\Table\ProfilesTable;
 use App\Model\Table\ResourcesTable;
 use App\Model\Table\SecretsTable;
 use App\Model\Table\UsersTable;
 use App\Utility\Gpg;
+use App\Utility\UuidFactory;
 use Cake\ORM\TableRegistry;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use Ramsey\Uuid\Uuid;
 
 class ImportController extends AppController
 {
@@ -28,6 +34,8 @@ class ImportController extends AppController
     private $profileTable;
     /* @var $userGpgKeyInfo \App\Model\Entity\Gpgkey */
     private $userGpgKeyInfo;
+    /* @var PermissionsTable $permissionsTable */
+    private $permissionsTable;
 
     public function index()
     {
@@ -35,6 +43,7 @@ class ImportController extends AppController
 
         $headers = $this->request->getHeaders();
         $files = $this->request->getUploadedFiles();
+        $groupGetPermission = $this->request->getParsedBody()['group'];
 
         $response = [];
         /* @var $file \Zend\Diactoros\UploadedFile */
@@ -59,6 +68,7 @@ class ImportController extends AppController
                         continue;
                     } else {
                         $fileRow = str_getcsv($fileRow);
+                        /* @var App\Model\Entity\Resource $resource */
                         $resource = $this->resourceExists($fileRow);
 
                         //$response['report'][$key] ['existence'] = json_encode($resource) ;
@@ -72,6 +82,22 @@ class ImportController extends AppController
                         //$response['report'][$key] ['save_error'] = $fileRow ;
                                 $response['error'][] = $this->getErrorPointer($fileRow) ;
                                 continue;
+                            }
+
+                            if (isset($groupGetPermission) && $groupGetPermission != '') {
+
+                                try {
+                                    $permission = $this->permissionsTable->newEntity();
+                                    $permission->set('id', UuidFactory::uuid());
+                                    $permission->set('aco', 'Resource');
+                                    $permission->set('aco_foreign_key', $resource->id);
+                                    $permission->set('aro', 'Group');
+                                    $permission->set('aro_foreign_key', $groupGetPermission);
+                                    $permission->set('type', Permission::READ);
+                                    $saved = $this->permissionsTable->save($permission);
+                                } catch (\Exception $e) {
+                                    //logging
+                                }
                             }
 
                             $response['imported'][] = $resource->name ?: json_encode($resource);
@@ -111,6 +137,7 @@ class ImportController extends AppController
 
     private function init()
     {
+        $this->permissionsTable = TableRegistry::get('Permissions');
         $this->resourceTable = TableRegistry::get('Resources');
         $this->secretTable = TableRegistry::get('Secrets');
         $this->userTable = TableRegistry::get('Users');
