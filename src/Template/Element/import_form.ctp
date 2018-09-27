@@ -28,7 +28,7 @@
                 if (isset($this->viewVars['allGroups']) && count($this->viewVars['allGroups']) > 0 ) {
                     ?>
                     <h5>Share:</h5>
-                    <lable>choose the group you want to share the passwords with:</lable>
+                    <label>choose the group you want to share the passwords with:</label>
                     <select id="group" name="group">
                         <option value="">Select a group</option>
                         <? foreach ($this->viewVars['allGroups'] as $group)  { ?>
