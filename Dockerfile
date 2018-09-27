@@ -9,7 +9,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     apt-get install -y git
 
 # install password importer plugin
-RUN php composer.phar require aahmadts/passbolt-password-importer:1.0.0
+RUN php composer.phar require aahmadts/passbolt-password-importer:1.0.2
 
 # remove dev-ependencies
 RUN rm composer.phar && apt-get remove -y git

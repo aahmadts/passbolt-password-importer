@@ -15,7 +15,7 @@ class AppController extends BaseController
         /* @var GroupsTable $groupsTable */
         $groupsTable =  \Cake\ORM\TableRegistry::get('Groups');
         /* @var Cake\ORM\ResultSet $groups*/
-        $groups = $groupsTable->find()->all();
+        $groups = $groupsTable->find()->where(['deleted' => 0])->all();
         /* @var App\Model\Entity\Group $group*/
         $this->set(['allGroups' => $groups ]);
 

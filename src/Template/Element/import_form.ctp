@@ -24,11 +24,11 @@
                     <input type="file" name="passwordFile"  class="form-control-file" />
             </div>
             <div>
-                <h5>Share:</h5>
-                <lable>choose the group you want to share the passwords with:</lable>
                 <?php
                 if (isset($this->viewVars['allGroups']) && count($this->viewVars['allGroups']) > 0 ) {
                     ?>
+                    <h5>Share:</h5>
+                    <lable>choose the group you want to share the passwords with:</lable>
                     <select id="group" name="group">
                         <option value="">Select a group</option>
                         <? foreach ($this->viewVars['allGroups'] as $group)  { ?>
@@ -36,6 +36,10 @@
                         <? } ?>
                     </select>
                     <?php
+                } else {
+                ?>
+                  <i>You have no active groups to share secrets with.</i>
+                <?php
                 }
                 ?>
             </div>
