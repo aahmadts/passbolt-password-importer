@@ -1,4 +1,4 @@
-FROM passbolt/passbolt:2.1.0-debian
+FROM passbolt/passbolt:2.3.0-debian
 
 #install dev-dependencies (composer, git)
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
