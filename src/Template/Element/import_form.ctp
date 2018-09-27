@@ -1,5 +1,4 @@
 <?php
-
 ?>
 <div class="container" style="margin: 25px; max-width: 600px;">
     <div>
@@ -24,9 +23,26 @@
                     <label for="password_file">Select file to import passwords from</label>
                     <input type="file" name="passwordFile"  class="form-control-file" />
             </div>
-            <div style="text-align: center">
+            <div>
+                <h5>Share:</h5>
+                <lable>choose the group you want to share the passwords with:</lable>
+                <?php
+                if (isset($this->viewVars['allGroups']) && count($this->viewVars['allGroups']) > 0 ) {
+                    ?>
+                    <select id="group" name="group">
+                        <option value="">Select a group</option>
+                        <? foreach ($this->viewVars['allGroups'] as $group)  { ?>
+                            <option value="<?= $group->id ?>"><?= $group->name ?></option>
+                        <? } ?>
+                    </select>
+                    <?php
+                }
+                ?>
+            </div>
+            <div style="margin-top: 15px;text-align: center">
                 <input id="startImport" type="submit" class="btn btn-primary" style="width:100%;" value="import">
             </div>
+
         </form>
     </div>
     <div>
