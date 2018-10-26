@@ -8,9 +8,12 @@ $(document).ready(function () {
         if (fileInputs[0].value !== '') {
             $('#startImport').css('display', 'none');
 
+            let csrfTokenPos = document.cookie.match(/csrfToken=/).index;
+            let csrfToken = document.cookie.slice(csrfTokenPos + 10);
+
             $(this).ajaxSubmit({
                 "headers": {
-                    "X-CSRF-Token" : document.cookie.slice(67),
+                    "X-CSRF-Token" : csrfToken,
                 },
                 success: viewResponse
             });
