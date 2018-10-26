@@ -10,7 +10,7 @@ $(document).ready(function () {
 
             $(this).ajaxSubmit({
                 "headers": {
-                    "X-CSRF-Token" : document.cookie.slice(10),
+                    "X-CSRF-Token" : document.cookie.slice(67),
                 },
                 success: viewResponse
             });
