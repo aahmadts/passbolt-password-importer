@@ -8,17 +8,19 @@ $(document).ready(function () {
         if (fileInputs[0].value !== '') {
             $('#startImport').css('display', 'none');
 
+            var csrfTokenValue;
+
             if (document.cookie.match(/csrfToken=\S+;/) !== null) {
                 let csrfToken = document.cookie.match(/csrfToken=\S+;/)[0];
-                let csrfTockenValue = csrfToken.slice(10, -1);
+                csrfTokenValue = csrfToken.slice(10, -1);
             } else {
                 let csrfToken = document.cookie.match(/csrfToken=\S+/)[0];
-                let csrfTockenValue = csrfToken.slice(10);
+                csrfTokenValue = csrfToken.slice(10);
             }
 
             $(this).ajaxSubmit({
                 "headers": {
-                    "X-CSRF-Token" : csrfTockenValue,
+                    "X-CSRF-Token" : csrfTokenValue,
                 },
                 success: viewResponse
             });
