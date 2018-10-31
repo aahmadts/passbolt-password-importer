@@ -8,8 +8,8 @@ $(document).ready(function () {
         if (fileInputs[0].value !== '') {
             $('#startImport').css('display', 'none');
 
-            let csrfToken = document.cookie.match(/csrfToken=\S+;/)[0];
-            if (csrfToken !== null) {
+            if (document.cookie.match(/csrfToken=\S+;/) !== null) {
+                let csrfToken = document.cookie.match(/csrfToken=\S+;/)[0];
                 let csrfTockenValue = csrfToken.slice(10, -1);
             } else {
                 let csrfToken = document.cookie.match(/csrfToken=\S+/)[0];
