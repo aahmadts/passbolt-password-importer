@@ -8,12 +8,19 @@ $(document).ready(function () {
         if (fileInputs[0].value !== '') {
             $('#startImport').css('display', 'none');
 
-            let csrfTokenPos = document.cookie.match(/csrfToken=/).index;
-            let csrfToken = document.cookie.slice(csrfTokenPos + 10);
+            var csrfTokenValue;
+
+            if (document.cookie.match(/csrfToken=\S+;/) !== null) {
+                let csrfToken = document.cookie.match(/csrfToken=\S+;/)[0];
+                csrfTokenValue = csrfToken.slice(10, -1);
+            } else {
+                let csrfToken = document.cookie.match(/csrfToken=\S+/)[0];
+                csrfTokenValue = csrfToken.slice(10);
+            }
 
             $(this).ajaxSubmit({
                 "headers": {
-                    "X-CSRF-Token" : csrfToken,
+                    "X-CSRF-Token" : csrfTokenValue,
                 },
                 success: viewResponse
             });
